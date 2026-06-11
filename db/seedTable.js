@@ -18,6 +18,7 @@ async function seedTable() {
     console.log("Table seeded successfully.");
   } catch (error) {
     console.error("Error seeding table:", error);
+    await db.exec(`ROLLBACK`);
   } finally {
     await db.close();
     console.log("Database connection closed.");
