@@ -193,7 +193,9 @@ function renderBattleCard(containerEl, hero, emptyText, currentHp, rollMode) {
 async function getHeroes() {
   const response = await fetch('/api/heroes');
   const data = await readJson(response, 'Failed to load heroes.');
-  heroes = data.heroes || [];
+  console.log('Heroes response data:', data);
+  heroes = data || [];
+  console.log('Heroes loaded:', heroes);
   return data;
 }
 

@@ -5,8 +5,9 @@ async function createTable() {
 
   try {
     await db.exec(
-      runsTable()
+      // runsTable()
       // heroTable()
+      usersTable()
     )
     console.log("Table created successfully.");
   } catch (error) {
@@ -35,6 +36,16 @@ function runsTable() {
     total_battles INTEGER NOT NULL DEFAULT 0,
     wins INTEGER NOT NULL DEFAULT 0,
     losses INTEGER NOT NULL DEFAULT 0,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+  )`;
+}
+
+function usersTable() {
+  return `CREATE TABLE IF NOT EXISTS users (
+    id INTEGER PRIMARY KEY,
+    name TEXT NOT NULL,
+    username TEXT NOT NULL UNIQUE,
+    password TEXT NOT NULL,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
   )`;
 }

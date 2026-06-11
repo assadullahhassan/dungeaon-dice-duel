@@ -34,22 +34,4 @@ async function updateRunStats(runId, totalBattles, wins, losses) {
   }
 }
 
-async function createRun(userId) {
-  const db = await getDb();
-
-  try {
-    const result = await db.run(
-      `INSERT INTO runs (userId, startTime) VALUES (?, ?)`,
-      [userId, new Date().toISOString()]
-    );
-    return result.lastID;
-
-  } catch (error) {
-    console.error("Error creating run:", error);
-  } finally {
-    await db.close();
-    console.log("Database connection closed.");
-  }
-}
-
-export { createRun, updateRunStats, createRun };
+export { createRun, updateRunStats };

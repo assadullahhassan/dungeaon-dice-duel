@@ -4,7 +4,7 @@ import path from 'node:path';
 
 export async function getDb() {
   return open({
-    filename: path.join(process.cwd(), 'db', 'heroes.db'),
+    filename: path.join(process.cwd(), 'db', 'database.db'),
     driver: sqlite3.Database
   });
 }

@@ -1,8 +1,10 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import diceGameRoutes from './routes/diceGameRoutes.js';
+import gameRouter from './routes/diceGameRoutes.js';
 import session from 'express-session';
+import meRouter from './routes/me.js';
+import authRouter from './routes/auth.js';
 
 dotenv.config();
 const app = express();
@@ -15,7 +17,9 @@ app.use(session({
   cookie: { secure: false }
 }));
 
-app.use('/api', diceGameRoutes);
+app.use('/api', gameRouter);
+app.use('/api/auth', authRouter);
+app.use('/api/auth/me', meRouter);
 
 app.use(cors());
 app.use(express.static('public'));

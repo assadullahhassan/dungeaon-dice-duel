@@ -4,7 +4,7 @@ async function viewTable() {
   const db = await getDb();
 
     try {
-        const heroes = await db.all(`SELECT * FROM heroes`);
+        const heroes = await db.all(`SELECT * FROM users`);
         console.log("Heroes in the database:");
         console.table(heroes);
     } catch (error) {
