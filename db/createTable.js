@@ -5,9 +5,10 @@ async function createTable() {
 
   try {
     await db.exec(
-      // runsTable()
+      runsTable()
       // heroTable()
-      usersTable()
+      // usersTable()
+      // deleteRunsTable()
     )
     console.log("Table created successfully.");
   } catch (error) {
@@ -48,6 +49,10 @@ function usersTable() {
     password TEXT NOT NULL,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
   )`;
+}
+
+function deleteRunsTable() {
+  return `DROP TABLE IF EXISTS runs`;
 }
 
 createTable();

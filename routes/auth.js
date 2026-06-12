@@ -40,6 +40,7 @@ authRouter.post('/register', async (req, res) => {
         );
         res.status(201).json({ message: 'User registered successfully.' });
         req.session.userId = result.lastID;
+        console.log('User registered with ID:', req.session.userId);
 
     } catch (error) {
       console.error("Error during registration:", error);
@@ -72,6 +73,7 @@ authRouter.post('/login', async (req, res) => {
         }
 
         req.session.userId = user.id;
+        console.log('User logged in with ID:', req.session.userId);
         res.json({ message: 'Login successful.' });
     } catch (error) {
       console.error("Error during login:", error);

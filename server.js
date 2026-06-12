@@ -10,11 +10,16 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 app.use(express.json());
+
 app.use(session({
   secret: process.env.SESSION_SECRET || 'defaultsecret',
   resave: false,
-  saveUninitialized: false,
-  cookie: { secure: false }
+  saveUninitialized: true,
+  cookie: {
+    httpOnly: true,
+    secure: false,
+    sameSite: 'lax'
+  }
 }));
 
 app.use('/api', gameRouter);

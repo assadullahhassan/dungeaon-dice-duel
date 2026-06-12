@@ -5,10 +5,11 @@ async function createRun(userId) {
 
   try {
     const result = await db.run(
-      `INSERT INTO runs (userId, startTime) VALUES (?, ?)`,
+      `INSERT INTO runs (userId, created_at) VALUES (?, ?)`,
       [userId, new Date().toISOString()]
     );
-    return result.lastID;
+    console.log('Run created with ID:', result);
+    return await result.lastID;
 
   } catch (error) {
     console.error("Error creating run:", error);

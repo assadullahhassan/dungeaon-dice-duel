@@ -11,28 +11,34 @@ const gameRouter = express.Router();
 
 gameRouter.get('/heroes', (req, res) => {
   const heroes = engine.getHeroes();
-  console.log('Fetched heroes:', heroes);
   res.json(heroes);
 });
 
-gameRouter.post('/battle/start', (req, res) => {
-  const { playerHeroId } = req.body;
-  const result = engine.startBattle(playerHeroId);
-  res.json(result);
+gameRouter.post('/battle/start', async (req, res) => {
+  const { heroId } = req.body;
+  const result = engine.startBattle(heroId);
+  
 
   if(req.session.userId) {
-    const runId = createRun(req.session.userId);
+    const runId = await createRun(req.session.userId);
     req.session.runId = runId;
+    console.log('New run created with ID:', runId);
+    console.log('RunId stored in session:', req.session.runId);
   }
+  res.json(result);
 });
 
-gameRouter.post('/battle/round', (req, res) => {
+gameRouter.post('/battle/round',  (req, res) => {
   const result = engine.playRound();
-  res.json(result);
 
+  console.log('Result of round:', result);
+  console.log('runId in session:', req.session.userId, req.session.runId);
+  console.log('Battle outcome:', result.outcome, 'Total battles:', result.totalBattles, 'Wins:', result.wins, 'Losses:', result.losses);
   if(result.outcome === 'ongoing') {
-    // updateRunStats(req.session.runId);
+    // updateRunStats(req.session.runId,);
+    console.log('RunId:', req.session.runId, result.outcome);
   }
+  res.json(result);
 });
 
 gameRouter.post('/battle/reset', (req, res) => {
